@@ -57,7 +57,7 @@ class Config:
     force: int = 5
     pos: int = 255
     speed: int = 10
-    fps: int = 10
+    fps: int = 30
     # Digits
     left_digit_serial: str = 'D20591'
     right_digit_serial: str = 'D20589'
@@ -103,10 +103,10 @@ def scan_object(cfg: Config, scene: Scene) -> DatasetItem:
     spf = 1. / cfg.fps
     obss = []
     while obj_status == g.ObjectStatus.MOVING:
+        pos, obj_status = g.get_pos_and_obj()
         obs = scene.get_observation()
         obss.append(obs)
         time.sleep(spf)
-        pos, obj_status = g.get_pos_and_obj()
     obs = tree.map_structure(lambda *t: np.stack(t), *obss)
     return DatasetItem(
             pos=obs['gripper/pos'].astype(np.uint8),
