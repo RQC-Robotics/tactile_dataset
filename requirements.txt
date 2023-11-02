@@ -1,0 +1,4 @@
+dm-tree==0.1.8
+numpy==1.26.1
+opencv-python==4.8.1.78
+ur_env[all] @ git+https://github.com/RQC-Robotics/ur5-env.git@80f072de350c9cba79ede6d7be49fdc31d9e53ea
