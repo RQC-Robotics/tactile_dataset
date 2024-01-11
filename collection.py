@@ -49,7 +49,6 @@ class Config:
     CONFIG_NAME: ClassVar[str] = 'config.npz'
     ITEMS_DIR: ClassVar[str] = 'items/'
 
-    relaxation_time: float = 0.5
     dataset_dir: str = 'dataset/'
     seed: int = 1
     # Robotiq_2f85
@@ -59,12 +58,12 @@ class Config:
     speed: int = 10
     fps: int = 30
     # Digits
-    left_digit_serial: str = 'D20591'
+    left_digit_serial: str = 'D20590'
     right_digit_serial: str = 'D20589'
     digit_resolution: Literal['VGA', 'QVGA'] = 'QVGA'
     # RealSense
     wrist_camera_resolution: tuple[int, int] = (640, 480)
-    resize_image: tuple[int, int] | None = (128, 128)
+    resize_image: tuple[int, int] | None = None
 
 
 def make_scene(cfg: Config) -> Scene:
@@ -135,6 +134,7 @@ def run(cfg: Config) -> None:
             data = sensor_data | obj_desc
             np.savez_compressed(items_dir / f'{idx:04d}', **data)
     except KeyboardInterrupt:
+        scene.close()
         return
 
 

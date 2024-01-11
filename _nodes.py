@@ -60,17 +60,17 @@ class Robotiq2f85(base.Node):
 
     def get_observation(self) -> Observation:
         pos, obj_stat = self.get_pos_and_obj()
-        inner = RobotiqGripper.ObjectStatus.STOPPED_INNER_OBJECT
+        Status = RobotiqGripper.ObjectStatus
         obs = {
             'pos': pos,
-            'object_detected': obj_stat == inner
+            'object_detected': Status(obj_stat) == Status.STOPPED_INNER_OBJECT
             }
         return {k: np.atleast_1d(v) for k, v in obs.items()}
 
     def get_pos_and_obj(self) -> tuple[int, RobotiqGripper.ObjectStatus]:
         return (
             self._get_var(RobotiqGripper.POS),
-            RobotiqGripper.ObjectStatus(self._get_var(RobotiqGripper.OBJ))
+            self._get_var(RobotiqGripper.OBJ)
         )
 
     def observation_spec(self):
