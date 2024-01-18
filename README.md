@@ -1,12 +1,12 @@
 ### UR5e tactile dataset.
-This repo describes tactile dataset collection.
-A dataset contains tactile sensors' feedback alongside with information from cameras and robot (or any other node that is compatible with the [ur_env](https://github.com/RQC-Robotics/ur5-env.git))
- when performing continuous grasping of various items.
+This repo describes a tactile dataset collection.
+The dataset contains tactile sensors' feedback  on performing continuous grasping of various household items alongside with information from cameras and robot.
 
-Dataset can be downloaded via preconfigured AWS CLI:
+AWS CLI can be used to synchronize the dataset with Yandex Object Storage:
 ```
-aws s3 --endpoint-url=https://storage.yandexcloud.net sync s3://tactile-dataset local_path/
+aws s3 --endpoint-url=https://storage.yandexcloud.net sync local_dataset_path/ s3://tactile-dataset/dataset
 ```
+There is also `s3://tactile-dataset/dataset.zip` that contains all the data but may be slightly stale.
 
 Content:
 - [collection.py](collection.py): the collection loop implementation.
